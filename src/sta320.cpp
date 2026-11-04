@@ -16,6 +16,10 @@ bool STA320::begin()
     if(!TwoWireDevice::begin())
         return false;
 
+    // Chip must answer before we configure it
+    if(!ping())
+        return false;
+
     _reg_tone = REG_TONE_INIT;
     _reg_confd = REG_CONFD_INIT;
 
@@ -38,6 +42,13 @@ bool STA320::begin()
     writereg8(REG_C2CFG, REG_C2CFG_INIT);
     writereg8(REG_C3CFG, REG_C3CFG_INIT);
     writereg8(REG_TONE, REG_TONE_INIT);
+    if(last_error())
+        return false;
+
+    // Read one register back to verify the writes actually arrived
+    uint8_t mvol = readreg8(REG_MVOL);
+    if(last_error() || mvol != REG_MVOL_INIT)
+        return false;
 
     return true;
 }
