@@ -134,7 +134,7 @@ void STA320::mute(bool mute)
 
 int8_t STA320::setVolume(int8_t attn)
 {
-	if(attn > 127)	attn = 127;
+	// if(attn > 127)	attn = 127; int8 only goes to 127 anyway
 	if(attn < 0)	attn = 0;
 	writereg8(REG_MVOL, attn << 1); // 0.5 dB/bit
 	return attn;
