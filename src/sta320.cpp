@@ -13,17 +13,18 @@
 
 bool STA320::begin()
 {
-    TwoWireDevice::begin();
+    if(!TwoWireDevice::begin())
+        return false;
 
-	_reg_tone = REG_TONE_INIT;
+    _reg_tone = REG_TONE_INIT;
     _reg_confd = REG_CONFD_INIT;
 
-	writereg8(REG_CONFA, REG_CONFA_INIT);
-	writereg8(REG_CONFB, REG_CONFB_INIT);
-	writereg8(REG_CONFC, REG_CONFC_INIT);
-	writereg8(REG_CONFD, REG_CONFD_INIT);
-	writereg8(REG_CONFE, REG_CONFE_INIT);
-	writereg8(REG_CONFF, REG_CONFF_INIT);
+    writereg8(REG_CONFA, REG_CONFA_INIT);
+    writereg8(REG_CONFB, REG_CONFB_INIT);
+    writereg8(REG_CONFC, REG_CONFC_INIT);
+    writereg8(REG_CONFD, REG_CONFD_INIT);
+    writereg8(REG_CONFE, REG_CONFE_INIT);
+    writereg8(REG_CONFF, REG_CONFF_INIT);
     writereg8(REG_MUTE,  REG_MUTE_INIT); // start muted
 
     writereg8(REG_MVOL, REG_MVOL_INIT);
@@ -36,7 +37,7 @@ bool STA320::begin()
     writereg8(REG_C1CFG, REG_C1CFG_INIT);
     writereg8(REG_C2CFG, REG_C2CFG_INIT);
     writereg8(REG_C3CFG, REG_C3CFG_INIT);
-	writereg8(REG_TONE, REG_TONE_INIT);
+    writereg8(REG_TONE, REG_TONE_INIT);
 
     return true;
 }
